@@ -1,23 +1,34 @@
 <template>
   <div class="weui-panel weui-panel_access" >
       <searchbar></searchbar>
-      <div class="weui-panel__hd" id="diaodian-title">小编共找到 {{msg}}条记录1</div>
+      <div class="weui-panel__hd" id="diaodian-title">小编共找到 {{msg}}条记录</div>
       <div class="weui-panel__bd" id="diaodian-body">
           <div class="weui-media-box weui-media-box_text" v-bind:id=" item.id " v-for="item in diaodianlst">
-              <h4 class="weui-media-box__title">{{ item.name }}</h4>
-              <p class="weui-media-box__desc">{{ item.fish_desc }}</p>
+              <router-link :to="{name:'diaodiandetail' , params:{diaodianid:item.id} }"  >
+                <h4 class="weui-media-box__title">{{ item.name }}</h4>
+                <p class="weui-media-box__desc">{{ item.fish_desc }}</p>
+              </router-link>
           </div>
        </div>
       <div class="weui-panel__ft">
-          <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
-              <div class="weui-cell__bd">查看更多</div>
-              <span class="weui-cell__ft"></span>
-          </a>    
+
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page="currentPage4"
+          :page-sizes="[100, 200, 300, 400]"
+          :page-size="100"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400">
+        </el-pagination>
+   
       </div>
   </div>
 </template>
 
 <script>
+import 'src/style/weui.min.css'
+import {mapState, mapMutations} from 'vuex'
 import searchbar from '@/components/common/searchbar'
 import {queryDiaoDian} from '@/service/getData'
 export default {
@@ -31,7 +42,6 @@ export default {
   mounted(){
     // 获取列表
     queryDiaoDian().then(res => {
-        console.log('11');
         this.diaodianlst = res;
         this.msg = res.length;
     })
@@ -64,4 +74,5 @@ a {
 .weui-label {
     width: 70px;
  }
+
 </style>
