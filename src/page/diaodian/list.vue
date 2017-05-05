@@ -1,6 +1,6 @@
 <template>
   <div class="weui-panel weui-panel_access" >
-      <searchbar></searchbar>
+      <searchbar v-on:message="search"></searchbar>
       <div class="weui-panel__hd" id="diaodian-title">小编共找到 {{msg}}条记录</div>
       <div class="weui-panel__bd" id="diaodian-body">
           <div class="weui-media-box weui-media-box_text" v-bind:id=" item.id " v-for="item in diaodianlst">
@@ -15,11 +15,11 @@
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[100, 200, 300, 400]"
-          :page-size="100"
+          :current-page="currentPage"
+          :page-sizes="[10, 15, 20, 30]"
+          :page-size="pageSize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400">
+          :total="totalRow">
         </el-pagination>
    
       </div>
@@ -37,17 +37,43 @@ export default {
     return {
       msg: '',
       diaodianlst:[],
+      currentPage: 1, 
+      totalRow:0,
+      pageSize:15,
+      searchTxt:'',   
     }
   },
   mounted(){
     // 获取列表
-    queryDiaoDian().then(res => {
-        this.diaodianlst = res;
-        this.msg = res.length;
-    })
+    this.queryDiaoDianList();
     },
     components:{
         'searchbar':searchbar,
+    },
+    methods: {
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+        this.pageSize = val;
+        this.queryDiaoDianList();
+      },
+      handleCurrentChange(val) {
+        this.currentPage = val;
+        console.log(`当前页: ${val}`);
+        this.queryDiaoDianList();
+      },
+      async queryDiaoDianList(){ 
+          let pager = await queryDiaoDian(this.pageSize,this.currentPage,this.searchTxt);
+          this.diaodianlst = pager.list;
+          this.msg = pager.totalRow;
+          this.currentPage = pager.curPage;
+          this.totalRow = pager.totalRow;
+          this.pageSize = pager.pageSize;          
+       },
+      search: function (text) {
+        this.searchTxt = text;
+        console.log('监听到子组件变化:'+this.searchTxt);
+        this.queryDiaoDianList();
+      }
     },
 }
 </script>

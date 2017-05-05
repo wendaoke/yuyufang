@@ -1,7 +1,7 @@
 <template>
      
-        <el-input placeholder="请输入查询内容" v-model="input5">
-          <el-button slot="append" icon="search"></el-button>
+        <el-input placeholder="请输入查询内容"  v-model="queryTxt" >
+          <el-button slot="append" icon="search"  @click="onSearch"></el-button>
         </el-input>
      
 </template>
@@ -11,9 +11,16 @@
     export default {
     	data(){
             return{
-		      input5: '',
+		      queryTxt: '',
             }
         },
+        methods: {
+          onSearch: function () {
+            if (this.queryTxt.trim()) {
+              this.$emit('message', this.queryTxt);
+            }
+          }
+        }
     }
 </script>
 
