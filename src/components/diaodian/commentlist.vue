@@ -1,5 +1,5 @@
 <template>
-<div class="weui-panel weui-panel_access">
+      <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">  
               <el-form ref="commentForm" :inline="false" :model="commentForm"  :rules="rules" label-width="80px" label-position="top" class="comment" >
                 <el-form-item label="吐槽一下"  prop="comment">
@@ -10,7 +10,7 @@
                 </el-form-item>
               </el-form>
             </div>
-            <div class="weui-panel__bd">
+            <div class="weui-panel__bd" v-if="commentlst.length > 0">
                 <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg" v-bind:id=" item.id " v-for="item in commentlst">
                     <div class="weui-media-box__hd">
                        <img v-bind:src=" item.commentator_headimg " class="weui-media-box__thumb headerimg"></img>
@@ -24,7 +24,7 @@
                     </div>
                 </a>
             </div>
-            <div class="weui-panel__ft">
+            <div class="weui-panel__ft" v-if="commentlst.length > 0">
               <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
@@ -40,7 +40,7 @@
 <script>
 import 'src/plugins/jquery.min.js'
 import 'src/plugins/diaodian.js'
-import {queryDiaoDianCommentList} from '@/service/getData'
+import {queryCommentList,addComment} from '@/service/getData'
 import 'src/style/weui.min.css'
 import 'src/style/jquery-weui.min.css'
 import 'src/style/demos.css'
@@ -54,7 +54,7 @@ import 'src/style/demos.css'
               commentForm:{},
               rules: {
               comment: [
-                { required: true, message: '亲，评论不要为空哦！', trigger: 'blur' }
+                { required: true, message: '亲，说点什么吧！', trigger: 'blur' }
               ]
               }
             }
@@ -75,7 +75,7 @@ import 'src/style/demos.css'
         this.queryCommentList();
       },
       async queryCommentList(){ 
-          let pager = await queryDiaoDianCommentList(this.pageSize,this.currentPage,1);
+          let pager = await queryCommentList(this.pageSize,this.currentPage,1,'00ca0898b3e5455b8a8d8c8802a0832e');
           this.commentlst = pager.list;
           this.msg = pager.totalRow;
           this.currentPage = pager.curPage;
@@ -84,8 +84,9 @@ import 'src/style/demos.css'
        },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (valid) {
-            alert('submit!');
+          if (valid) {            
+            addComment('00ca0898b3e5455b8a8d8c8802a0832e','111',1,'12123');
+            this.queryCommentList();
           } else {
             console.log('error submit!!');
             return false;
