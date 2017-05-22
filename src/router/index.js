@@ -5,6 +5,7 @@ import App from '../App'
 Vue.use(Router)
 const diaodianlst = r => require.ensure([], () => r(require('@/page/diaodian/list')), 'diaodianlst')
 const diaodiandetail = r => require.ensure([], () => r(require('@/page/diaodian/detail')), 'diaodiandetail')
+const home = r => require.ensure([], () => r(require('@/page/home/index')), 'home')
 export default new Router({
   routes: [
     {
@@ -14,8 +15,12 @@ export default new Router({
         //地址为空时跳转home页面
         {
             path: '',
-            redirect: '/diaodianlst'
+            redirect: '/home'
         },
+        {
+            path: '/home',
+            component: home
+        },        
         {
             path: '/diaodianlst',
             component: diaodianlst
