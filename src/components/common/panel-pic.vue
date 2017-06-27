@@ -1,6 +1,7 @@
 <template>
 	<div class="weui-panel weui-panel_access">
-	    <div class="weui-panel__hd">图文组合列表</div>
+	    
+	    <slot name="title"></slot>
 	    <div class="weui-panel__bd">
 	        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
 	            <div class="weui-media-box__hd">

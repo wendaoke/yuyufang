@@ -7,13 +7,13 @@ var queryDiaoDian = (pageSize,currentPage,queryString) => fetch('GET', '/diaodia
 });
 var queryDiaoDianDetail = (diaodianid) => fetch('POST', '/diaodian/detail/'+diaodianid, {
 });
-var queryCommentList = (pageSize,currentPage,type,itemId) => fetch('GET', '/diaodian/comment/list', {
+var queryCommentList = (pageSize,currentPage,type,itemId) => fetch('GET', '/comment/list', {
 	pageSize: pageSize,
 	currentPage:currentPage,
 	type,type,
     itemId:itemId		
 });
-var addComment = (itemId,userId,type,comment) => fetch('POST', '/diaodian/comment/add', {
+var addComment = (itemId,userId,type,comment) => fetch('POST', '/comment/add', {
 	item_id: itemId,
 	commentator_id:userId,
 	type,type,

@@ -5,9 +5,15 @@
 	            <div class="weui-tab__panel">
 	                <searchbar v-on:message="search"></searchbar>
       				<grids></grids>
-       				<paneltime></paneltime>     				
-      				<panelpic></panelpic>
-      				<paneltxt></paneltxt>
+       				<panelpic>
+      				<div class="weui-panel__hd" slot="title">精彩渔获</div>
+      				</panelpic>     				
+       				<paneltime>
+       				<div class="weui-panel__hd" slot="title">今日精选</div>
+       				</paneltime>		
+      				<paneltxt>
+      				<div class="weui-panel__hd" slot="title">精彩好文</div>
+      				</paneltxt>
 
 	            </div>
       			<toolbar></toolbar>

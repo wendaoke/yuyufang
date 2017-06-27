@@ -8,13 +8,13 @@
  */
 let baseUrl; 
 let routerMode;
-const imgBaseUrl = 'https://img.yuyufang.cn';
+const imgBaseUrl = 'https://img.you-xian.cn';
 
 if (process.env.NODE_ENV == 'development') {
-	baseUrl = 'http://localhost:8080';
+	baseUrl = 'http://localhost:8888';
 	routerMode = 'hash'
 }else{
-	baseUrl = 'http://www.yuyufang.cn';
+	baseUrl = 'http://120.25.166.56:8888';
 	routerMode = 'hash'
 }
 

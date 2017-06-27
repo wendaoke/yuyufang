@@ -2,7 +2,7 @@
       <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">  
               <el-form ref="commentForm" :inline="false" :model="commentForm"  :rules="rules" label-width="80px" label-position="top" class="comment" >
-                <el-form-item label="吐槽一下"  prop="comment">
+                <el-form-item label="评论一下"  prop="comment">
                   <el-input type="textarea" v-model="commentForm.comment"></el-input>
                 </el-form-item>
                 <el-form-item>
@@ -38,12 +38,7 @@
 </template>
 
 <script>
-import 'src/plugins/jquery.min.js'
-import 'src/plugins/diaodian.js'
 import {queryCommentList,addComment} from '@/service/getData'
-import 'src/style/weui.min.css'
-import 'src/style/jquery-weui.min.css'
-import 'src/style/demos.css'
     export default {
     	data(){
             return{
@@ -53,25 +48,22 @@ import 'src/style/demos.css'
               pageSize:15,
               commentForm:{},
               rules: {
-              comment: [
-                { required: true, message: '亲，说点什么吧！', trigger: 'blur' }
-              ]
+                comment: [
+                  { required: true, message: '亲，说点什么吧！', trigger: 'blur' }
+                ]
               }
             }
         },
       mounted(){
-      // 获取列表
-      this.queryCommentList();
+        this.queryCommentList();
       },
     methods: {
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
         this.pageSize = val;
         this.queryCommentList();
       },
       handleCurrentChange(val) {
         this.currentPage = val;
-        console.log(`当前页: ${val}`);
         this.queryCommentList();
       },
       async queryCommentList(){ 
@@ -84,8 +76,9 @@ import 'src/style/demos.css'
        },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (valid) {            
-            addComment('00ca0898b3e5455b8a8d8c8802a0832e','111',1,'12123');
+          if (valid) {       
+            addComment('00ca0898b3e5455b8a8d8c8802a0832e','111',1,this.commentForm.comment);
+            this.commentForm.comment = '';
             this.queryCommentList();
           } else {
             console.log('error submit!!');

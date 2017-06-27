@@ -2,26 +2,30 @@
     <div class="weui-grids">
 	    <!-- 第一个宫格 -->
 	    <a href="#" class="weui-grid">
-			<router-link to="/diaodian/list"  >
-				<!-- 图标 -->
-				<div class="weui-grid__icon">
-					<img src="/static/images/icon_tabbar.png" alt="">
-				</div>
-				<!-- 标签文字 -->
-				<p class="weui-grid__label">钓场</p>			
-			</router-link>
+	        <!-- 图标 -->
+	        <div class="weui-grid__icon">
+	            <img src="/static/images/icon_tabbar.png" alt="">
+	        </div>
+	        <!-- 标签文字 -->
+	        <p class="weui-grid__label">钓场</p>
 	    </a>
-
+	    <!-- 第二个宫格 -->
+	    <a href="#" class="weui-grid">
+	        <!-- 图标 -->
+	        <div class="weui-grid__icon">
+	            <img src="/static/images/icon_tabbar.png" alt="">
+	        </div>
+	        <!-- 标签文字 -->
+	        <p class="weui-grid__label">渔具店</p>
+	    </a>
 		<!-- 第三个宫格 -->
 	    <a href="#" class="weui-grid">
-			<router-link to="/secondhand/list"  >
 	        <!-- 图标 -->
 	        <div class="weui-grid__icon">
 	            <img src="/static/images/icon_tabbar.png" alt="">
 	        </div>
 	        <!-- 标签文字 -->
 	        <p class="weui-grid__label">淘淘</p>
-			</router-link>			
 	    </a>
 	    <!-- 第四个宫格 -->
 	    <a href="#" class="weui-grid">
@@ -62,12 +66,12 @@ import $ from 'n-zepto'
     }
 </script>
 
-<style scoped>
+<style >
 .weui-grid {
     position: relative;
     float: left;
     padding: 2px 1px;
-    width: 25%;
+    width: 20%;
     box-sizing: border-box;
     margin-top: 2px;
 }

@@ -1,6 +1,6 @@
 <template>
         <div class="weui-panel">
-            <div class="weui-panel__hd">文字列表附来源</div>
+            <slot name="title"></slot>
             <div class="weui-panel__bd">
                 <div class="weui-media-box weui-media-box_text">
                     <h4 class="weui-media-box__title">标题一</h4>

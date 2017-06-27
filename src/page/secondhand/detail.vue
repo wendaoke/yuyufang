@@ -2,20 +2,18 @@
 	<div class="container" id="container">
 		<div class="page article js_show">
 			<div class="page__hd">
-				<h3 class="page__title">{{diaodiandetail.name}}</h3>
+				<h3 class="page__title">{{secondHandDetail.title}}</h3>
 			</div>
 			<div class="page__bd">
 				<article class="weui-article">
 						<section>
 							<p>
-								{{diaodiandetail.fish_desc}}
+								{{secondHandDetail.content}}
 							</p>
 						</section>
 				</article>
 			</div>
-			<carousel  :current-view.sync="diaodiandetail.images" :inputValue="diaodiandetail.images"></carousel>
-
-      	
+			<carousel  :current-view.sync="secondHandDetail.images" :inputValue="secondHandDetail.images"></carousel>
         	<commentlist></commentlist>
 			<div class="page__ft j_bottom" style="margin: 20px 0;">
 				<a href="javascript:void()"></a>
@@ -25,14 +23,13 @@
 </template>
 
 <script>
-import {queryDiaoDianDetail} from '@/service/getData'
+import {querySecondHandDetail} from '@/service/secondHand'
 import carousel from '@/components/common/carousel'
 import commentlist from '@/components/comment/commentlist'
-import 'src/style/weui.min.css'
 export default {
 	data () {
 	    return {
-	      diaodiandetail:{},
+	      secondHandDetail:{},
 	    }
 	  },
 	mounted(){
@@ -45,10 +42,10 @@ export default {
 	},
 	methods: {
 	    async initData(){
-	    	let diaodianid = this.$route.params.diaodianid;
+	    	let id = this.$route.params.id;
 		    // 获取详情
-		    if(null != diaodianid){
-		    	this.diaodiandetail = await queryDiaoDianDetail(diaodianid);
+		    if(null != id){
+		    	this.secondHandDetail = await querySecondHandDetail(id);
 		    }
 
 		},

@@ -16,9 +16,9 @@
         },
         methods: {
           onSearch: function () {
-            if (this.queryTxt.trim()) {
+            // if (this.queryTxt.trim()) {
               this.$emit('message', this.queryTxt);
-            }
+            // }
           }
         }
     }
