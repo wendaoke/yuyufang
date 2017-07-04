@@ -46,7 +46,9 @@ import {queryCommentList,addComment} from '@/service/getData'
               currentPage: 1, 
               totalRow:0,
               pageSize:15,
-              commentForm:{},
+              commentForm:{
+                comment:''
+              },
               rules: {
                 comment: [
                   { required: true, message: '亲，说点什么吧！', trigger: 'blur' }
@@ -69,7 +71,6 @@ import {queryCommentList,addComment} from '@/service/getData'
       async queryCommentList(){ 
           let pager = await queryCommentList(this.pageSize,this.currentPage,1,'00ca0898b3e5455b8a8d8c8802a0832e');
           this.commentlst = pager.list;
-          this.msg = pager.totalRow;
           this.currentPage = pager.curPage;
           this.totalRow = pager.totalRow;
           this.pageSize = pager.pageSize;          

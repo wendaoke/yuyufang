@@ -16,4 +16,5 @@ var querySecondHand = (pageSize, currentPage, queryString) => fetch('GET', '/sec
     queryString: queryString
 });
 var querySecondHandDetail = (id) => fetch('POST', '/secondhand/detail/' + id, {});
-export { addSecondHand, querySecondHand, querySecondHandDetail }
+var queryRecommendSecondHand = () => fetch('GET', '/secondhand/recommend', {});
+export { addSecondHand, querySecondHand, querySecondHandDetail, queryRecommendSecondHand }

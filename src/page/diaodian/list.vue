@@ -4,6 +4,7 @@
       <div class="weui-cells weui-cells_form">
           <div class="weui-cell weui-cell_switch">
               <div class="weui-cell__bd">小编共找到 {{msg}}个钓点</div>
+              <!--
               <div class="weui-cell__ft">
                  <router-link to="/diaodian/add"  >
                     <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">
@@ -11,6 +12,7 @@
                     </a>
                   </router-link>
               </div>
+              -->
           </div>
       </div>
       <div class="weui-panel__bd" id="diaodian-body">

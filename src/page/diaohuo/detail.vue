@@ -2,18 +2,20 @@
 	<div class="container" id="container">
 		<div class="page article js_show">
 			<div class="page__hd">
-				<h3 class="page__title">{{secondHandDetail.title}}</h3>
+				<h3 class="page__title">{{detail.title}}</h3>
 			</div>
 			<div class="page__bd">
 				<article class="weui-article">
 						<section>
 							<p>
-								{{secondHandDetail.content}}
+								{{detail.content}}
 							</p>
 						</section>
 				</article>
 			</div>
-			<carousel  :current-view.sync="secondHandDetail.images" :inputValue="secondHandDetail.images"></carousel>
+			<carousel  :current-view.sync="detail.images" :inputValue="detail.images"></carousel>
+
+      	
         	<commentlist></commentlist>
 			<div class="page__ft j_bottom" style="margin: 20px 0;">
 				<a href="javascript:void()"></a>
@@ -23,13 +25,14 @@
 </template>
 
 <script>
-import {querySecondHandDetail} from '@/service/secondHand'
+import {queryDiaoHuoDetail} from '@/service/diaoHuo'
 import carousel from '@/components/common/carousel'
 import commentlist from '@/components/comment/commentlist'
+import 'src/style/weui.min.css'
 export default {
 	data () {
 	    return {
-	      secondHandDetail:{},
+	      detail:{},
 	    }
 	  },
 	mounted(){
@@ -43,9 +46,11 @@ export default {
 	methods: {
 	    async initData(){
 	    	let id = this.$route.query.id;
+			console.log(id);
 		    // 获取详情
 		    if(null != id){
-		    	this.secondHandDetail = await querySecondHandDetail(id);
+		    	this.detail = await queryDiaoHuoDetail(id);
+				console.log(this.detail);
 		    }
 
 		},

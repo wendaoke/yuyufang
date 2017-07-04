@@ -3,26 +3,24 @@
       <searchbar v-on:message="search"></searchbar>
       <div class="weui-cells weui-cells_form">
           <div class="weui-cell weui-cell_switch">
-              <div class="weui-cell__bd">共找到 {{msg}}条记录</div>
+              <div class="weui-cell__bd">小编共找到 {{msg}}篇钓获分享</div>
+              <!--
               <div class="weui-cell__ft">
-                 <router-link to="/secondhand/add"  >
+                 <router-link to="/DiaoHuo/add"  >
                     <a href="javascript:;" class="weui-btn weui-btn_mini weui-btn_default">
                     我来发布
                     </a>
                   </router-link>
               </div>
+              -->
           </div>
       </div>
-      <div class="weui-panel__bd" id="secondhand-body">
-          <div class="weui-media-box weui-media-box_text" v-bind:id=" item.id " v-for="item in itemlst">
-              <router-link :to="{name:'secondhanddetail' , query:{id:item.id} }"  >
+      <div class="weui-panel__bd" id="DiaoHuo-body">
+          <div class="weui-media-box weui-media-box_text" v-bind:id=" item.id " v-for="item in diaoHuolst">
+              <router-link :to="{path:'/diaohuo/detail' , query:{id:item.id} }"  >
                 <h4 class="weui-media-box__title">{{ item.title }}</h4>
                 <p class="weui-media-box__desc">{{ item.content }}</p>
               </router-link>
-                <ul class="weui-media-box__info">
-                          <li class="weui-media-box__info__meta">{{ item.province }}-{{ item.city }}-{{ item.area }}</li>
-                          <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ item.upateTime }}</li>
-                </ul>
           </div>
        </div>
       <div class="weui-panel__ft">
@@ -44,13 +42,13 @@
 <script>
 import {mapState, mapMutations} from 'vuex'
 import searchbar from '@/components/common/searchbar'
-import {querySecondHand} from '@/service/secondHand'
+import {queryDiaoHuo} from '@/service/diaoHuo'
 export default {
-  name: 'secondhand',
+  name: 'hello',
   data () {
     return {
       msg: '',
-      itemlst:[],
+      diaoHuolst:[],
       currentPage: 1, 
       totalRow:0,
       pageSize:8,
@@ -59,32 +57,34 @@ export default {
   },
   mounted(){
     // 获取列表
-    this.querySecondHandList();
+    this.queryDiaoHuoList();
     },
     components:{
         'searchbar':searchbar,
     },
     methods: {
       handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
         this.pageSize = val;
-        this.querySecondHandList();
+        this.queryDiaoHuoList();
       },
       handleCurrentChange(val) {
         this.currentPage = val;
-        this.querySecondHandList();
+        console.log(`当前页: ${val}`);
+        this.queryDiaoHuoList();
       },
-      async querySecondHandList(){ 
-          let pager = await querySecondHand(this.pageSize,this.currentPage,this.searchTxt);
-          this.itemlst = pager.list;
+      async queryDiaoHuoList(){ 
+          let pager = await queryDiaoHuo(this.pageSize,this.currentPage,this.searchTxt);
+          this.diaoHuolst = pager.list;
           this.msg = pager.totalRow;
           this.currentPage = pager.curPage;
           this.totalRow = pager.totalRow;
           this.pageSize = pager.pageSize;          
        },
       search: function (text) {
-        console.log(text);
         this.searchTxt = text;
-        this.querySecondHandList();
+        console.log('监听到子组件变化:'+this.searchTxt);
+        this.queryDiaoHuoList();
       }
     },
 }
@@ -120,18 +120,5 @@ a {
     overflow: hidden;
     position: relative;
     color: #999; 
-}
-.weui-media-box__info {
-    margin-top: 15px;
-    padding-bottom: 5px;
-    font-size: 13px;
-    color: #CECECE;
-    line-height: 1em;
-    list-style: none;
-    overflow: hidden;
-}
-.weui-media-box__info__meta {
-    float: left;
-    padding-right: 1em;
 }
 </style>

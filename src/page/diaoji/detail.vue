@@ -2,18 +2,20 @@
 	<div class="container" id="container">
 		<div class="page article js_show">
 			<div class="page__hd">
-				<h3 class="page__title">{{secondHandDetail.title}}</h3>
+				<h3 class="page__title">{{diaojidetail.title}}</h3>
 			</div>
 			<div class="page__bd">
 				<article class="weui-article">
 						<section>
 							<p>
-								{{secondHandDetail.content}}
+								{{diaojidetail.content}}
 							</p>
 						</section>
 				</article>
 			</div>
-			<carousel  :current-view.sync="secondHandDetail.images" :inputValue="secondHandDetail.images"></carousel>
+			<carousel  :current-view.sync="diaojidetail.images" :inputValue="diaojidetail.images"></carousel>
+
+      	
         	<commentlist></commentlist>
 			<div class="page__ft j_bottom" style="margin: 20px 0;">
 				<a href="javascript:void()"></a>
@@ -23,13 +25,13 @@
 </template>
 
 <script>
-import {querySecondHandDetail} from '@/service/secondHand'
+import {queryDiaoJiDetail} from '@/service/diaoJi'
 import carousel from '@/components/common/carousel'
 import commentlist from '@/components/comment/commentlist'
 export default {
 	data () {
 	    return {
-	      secondHandDetail:{},
+	      diaojidetail:{},
 	    }
 	  },
 	mounted(){
@@ -42,10 +44,10 @@ export default {
 	},
 	methods: {
 	    async initData(){
-	    	let id = this.$route.query.id;
+	    	let diaoJiId = this.$route.query.id;
 		    // 获取详情
-		    if(null != id){
-		    	this.secondHandDetail = await querySecondHandDetail(id);
+		    if(null != diaoJiId){
+		    	this.diaojidetail = await queryDiaoJiDetail(diaoJiId);
 		    }
 
 		},

@@ -10,10 +10,12 @@
             <img src="/static/images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">附近</p>
         </a>
+        <!--
         <a href="javascript:;" class="weui-tabbar__item" v-on:click="switchMenu">
             <img src="/static/images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">发现</p>
         </a>
+        -->
         <a href="javascript:;" class="weui-tabbar__item" v-on:click="switchMenu">
             <img src="/static/images/icon_tabbar.png" alt="" class="weui-tabbar__icon">
             <p class="weui-tabbar__label">我</p>

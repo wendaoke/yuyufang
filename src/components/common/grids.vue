@@ -25,21 +25,25 @@
 	    </a>
 	    <!-- 第四个宫格 -->
 	    <a href="#" class="weui-grid">
+			<router-link to="/diaoji/list"  >
 	        <!-- 图标 -->
 	        <div class="weui-grid__icon">
 	            <img src="/static/images/icon_tabbar.png" alt="">
 	        </div>
 	        <!-- 标签文字 -->
 	        <p class="weui-grid__label">钓技</p>
+			</router-link>
 	    </a>
 	    <!-- 第五个宫格 -->
 	    <a href="#" class="weui-grid">
+			<router-link to="/diaohuo/list"  >			
 	        <!-- 图标 -->
 	        <div class="weui-grid__icon">
 	            <img src="/static/images/icon_tabbar.png" alt="">
 	        </div>
 	        <!-- 标签文字 -->
-	        <p class="weui-grid__label">渔获</p>
+	        <p class="weui-grid__label">钓获</p>
+			</router-link>			
 	    </a>
 	</div>
 

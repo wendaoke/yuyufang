@@ -5,15 +5,30 @@
 	            <div class="weui-tab__panel">
 	                <searchbar v-on:message="search"></searchbar>
       				<grids></grids>
-       				<panelpic>
-      				<div class="weui-panel__hd" slot="title">精彩渔获</div>
+					<paneltime :itemlst="secondhandlst">
+					<div class="weui-panel__ft" slot="title">
+						<a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+							<div class="weui-cell__bd">今日精选</div>
+							<router-link to="/secondhand/list"  ><span class="weui-cell__ft"></span></router-link>
+						</a>    
+					</div>					   
+       				</paneltime>
+       				<panelpic :itemlst="diaohuolst">
+					<div class="weui-panel__ft" slot="title">
+						<a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+							<div class="weui-cell__bd">精彩渔获</div>
+							<router-link to="/diaohuo/list"  ><span class="weui-cell__ft"></span></router-link>
+						</a>    
+					</div>
       				</panelpic>     				
-       				<paneltime>
-       				<div class="weui-panel__hd" slot="title">今日精选</div>
-       				</paneltime>		
-      				<paneltxt>
-      				<div class="weui-panel__hd" slot="title">精彩好文</div>
-      				</paneltxt>
+      				<paneltxt :itemlst="diaojilst">
+					<div class="weui-panel__ft	" slot="title">
+						<a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+							<div class="weui-cell__bd">精彩好文</div>
+							<router-link to="/diaoji/list"  ><span class="weui-cell__ft"></span></router-link>
+						</a>    
+					</div>
+	  				</paneltxt>
 
 	            </div>
       			<toolbar></toolbar>
@@ -31,14 +46,21 @@ import grids from '@/components/common/grids'
 import panelpic from '@/components/common/panel-pic'
 import paneltxt from '@/components/common/panel-txt'
 import paneltime from '@/components/common/panel-time'
+import {queryRecommendSecondHand} from '@/service/secondHand'
+import {queryRecommendDiaoJi} from '@/service/diaoJi'
+import {queryRecommendDiaoHuo} from '@/service/diaoHuo'
 export default {
 	data () {
 	    return {
-
+			secondhandlst:[],
+			diaojilst:[],
+			diaohuolst:[],
 	    }
 	  },
 	mounted(){
-   
+		this.querySecondHandList();
+		this.queryDiaoJiList();
+		this.queryDiaoHuoList();
 	},
     components:{
         'toolbar':toolbar,
@@ -49,9 +71,18 @@ export default {
         'paneltime':paneltime,        
     },	    
 	methods: {
-      search: function (text) {
+		search: function (text) {
 
-      }
+		},
+		async querySecondHandList(){ 
+          this.secondhandlst = await queryRecommendSecondHand();
+       },
+		async queryDiaoJiList(){ 
+          this.diaojilst = await queryRecommendDiaoJi();
+       },
+		async queryDiaoHuoList(){ 
+          this.diaohuolst = await queryRecommendDiaoHuo();
+       },	   	   
 	},
 }
 </script>

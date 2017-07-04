@@ -10,6 +10,12 @@ const diaodiandetail = r => require.ensure([], () => r(require('@/page/diaodian/
 const secondhandlst = r => require.ensure([], () => r(require('@/page/secondhand/list')), 'secondhandlst')
 const secondhandadd = r => require.ensure([], () => r(require('@/page/secondhand/add')), 'secondhandadd')
 const secondhanddetail = r => require.ensure([], () => r(require('@/page/secondhand/detail')), 'secondhanddetail')
+const diaojilst = r => require.ensure([], () => r(require('@/page/diaoji/list')), 'diaojilst')
+const diaojiadd = r => require.ensure([], () => r(require('@/page/diaoji/add')), 'diaojiadd')
+const diaojidetail = r => require.ensure([], () => r(require('@/page/diaoji/detail')), 'diaojidetail')
+const diaohuolst = r => require.ensure([], () => r(require('@/page/diaohuo/list')), 'diaohuolst')
+const diaohuoadd = r => require.ensure([], () => r(require('@/page/diaohuo/add')), 'diaohuoadd')
+const diaohuodetail = r => require.ensure([], () => r(require('@/page/diaohuo/detail')), 'diaohuodetail')
 export default new Router({
     routes: [{
         path: '/',
@@ -64,13 +70,49 @@ export default new Router({
             },
             {
                 name: 'secondhanddetail',
-                path: '/secondhand/detail/:id',
+                path: '/secondhand/detail',
                 component: secondhanddetail
             },
             {
                 name: 'secondhandadd',
                 path: '/secondhand/add',
                 component: secondhandadd
+            },
+            {
+                path: '/diaoji/',
+                component: diaojilst,
+                children: [{
+                        path: '',
+                        redirect: 'list'
+                    },
+                    {
+                        path: 'list',
+                        component: diaojilst,
+                    },
+
+                ]
+            },
+            {
+                path: '/diaoji/detail',
+                component: diaojidetail,
+            },
+            {
+                path: '/diaohuo/',
+                component: diaohuolst,
+                children: [{
+                        path: '',
+                        redirect: 'list'
+                    },
+                    {
+                        path: 'list',
+                        component: diaohuolst,
+                    },
+
+                ]
+            },
+            {
+                path: '/diaohuo/detail',
+                component: diaohuodetail,
             },
         ]
     }]
