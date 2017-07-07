@@ -8,6 +8,7 @@ const diaodianlst = r => require.ensure([], () => r(require('@/page/diaodian/lis
 const diaodianadd = r => require.ensure([], () => r(require('@/page/diaodian/add')), 'diaodianadd')
 const diaodiandetail = r => require.ensure([], () => r(require('@/page/diaodian/detail')), 'diaodiandetail')
 const secondhandlst = r => require.ensure([], () => r(require('@/page/secondhand/list')), 'secondhandlst')
+const mysecondhandlst = r => require.ensure([], () => r(require('@/page/secondhand/mylist')), 'mysecondhandlst')
 const secondhandadd = r => require.ensure([], () => r(require('@/page/secondhand/add')), 'secondhandadd')
 const secondhanddetail = r => require.ensure([], () => r(require('@/page/secondhand/detail')), 'secondhanddetail')
 const diaojilst = r => require.ensure([], () => r(require('@/page/diaoji/list')), 'diaojilst')
@@ -16,6 +17,8 @@ const diaojidetail = r => require.ensure([], () => r(require('@/page/diaoji/deta
 const diaohuolst = r => require.ensure([], () => r(require('@/page/diaohuo/list')), 'diaohuolst')
 const diaohuoadd = r => require.ensure([], () => r(require('@/page/diaohuo/add')), 'diaohuoadd')
 const diaohuodetail = r => require.ensure([], () => r(require('@/page/diaohuo/detail')), 'diaohuodetail')
+const aboutme = r => require.ensure([], () => r(require('@/page/aboutme/index')), 'aboutme')
+const myinfo = r => require.ensure([], () => r(require('@/page/aboutme/myinfo')), 'myinfo')
 export default new Router({
     routes: [{
         path: '/',
@@ -79,6 +82,11 @@ export default new Router({
                 component: secondhandadd
             },
             {
+                name: 'mysecondhandlst',
+                path: '/secondhand/mylst',
+                component: mysecondhandlst
+            },
+            {
                 path: '/diaoji/',
                 component: diaojilst,
                 children: [{
@@ -113,6 +121,14 @@ export default new Router({
             {
                 path: '/diaohuo/detail',
                 component: diaohuodetail,
+            },
+            {
+                path: '/aboutme',
+                component: aboutme,
+            },
+            {
+                path: '/aboutme/myinfo',
+                component: myinfo,
             },
         ]
     }]

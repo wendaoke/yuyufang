@@ -2,7 +2,7 @@
         <div class="weui-panel">
             <slot name="title"></slot>
             <div class="weui-panel__bd">
-                <div class="weui-media-box weui-media-box_text" v-for="item in itemlst">
+                <div class="weui-media-box weui-media-box_text" v-for="item in itemlst" :key="item.id" >
                     <router-link :to="{path:'/secondhand/detail' , query:{id:item.id} }"  >
                         <h4 class="weui-media-box__title">{{ item.title }}</h4>
                         <p class="weui-media-box__desc">{{ item.content }}</p>
