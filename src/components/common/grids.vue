@@ -20,7 +20,7 @@
 	            <img src="/static/images/icon_tabbar.png" alt="">
 	        </div>
 	        <!-- 标签文字 -->
-	        <p class="weui-grid__label">淘淘</p>
+	        <p class="weui-grid__label">渔淘</p>
 			</router-link>			
 	    </a>
 	    <!-- 第四个宫格 -->

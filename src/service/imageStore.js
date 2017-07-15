@@ -7,4 +7,7 @@ var deleteImage = (image) => fetch('POST', '/image/delete', {
     itemId: image.itemId,
     imageName: image.imageName,
 });
-export { addImage, deleteImage }
+var findImageByItemId = (itemId) => fetch('POST', '/image/findimagebyitemid', {
+    itemId: itemId,
+});
+export { addImage, deleteImage, findImageByItemId }

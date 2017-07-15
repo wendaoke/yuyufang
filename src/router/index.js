@@ -11,6 +11,7 @@ const secondhandlst = r => require.ensure([], () => r(require('@/page/secondhand
 const mysecondhandlst = r => require.ensure([], () => r(require('@/page/secondhand/mylist')), 'mysecondhandlst')
 const secondhandadd = r => require.ensure([], () => r(require('@/page/secondhand/add')), 'secondhandadd')
 const secondhanddetail = r => require.ensure([], () => r(require('@/page/secondhand/detail')), 'secondhanddetail')
+const secondhandedit = r => require.ensure([], () => r(require('@/page/secondhand/edit')), 'secondhandedit')
 const diaojilst = r => require.ensure([], () => r(require('@/page/diaoji/list')), 'diaojilst')
 const diaojiadd = r => require.ensure([], () => r(require('@/page/diaoji/add')), 'diaojiadd')
 const diaojidetail = r => require.ensure([], () => r(require('@/page/diaoji/detail')), 'diaojidetail')
@@ -80,6 +81,11 @@ export default new Router({
                 name: 'secondhandadd',
                 path: '/secondhand/add',
                 component: secondhandadd
+            },
+            {
+                name: 'secondhandedit',
+                path: '/secondhand/edit',
+                component: secondhandedit
             },
             {
                 name: 'mysecondhandlst',

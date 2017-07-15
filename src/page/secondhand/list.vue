@@ -15,7 +15,7 @@
       </div>
       <div class="weui-panel__bd" id="secondhand-body">
           <div class="weui-media-box weui-media-box_text" v-bind:id=" item.id " v-for="item in itemlst">
-              <router-link :to="{name:'secondhanddetail' , query:{id:item.id} }"  >
+              <router-link :to="{name:'secondhandedit' , query:{id:item.id} }"  >
                 <h4 class="weui-media-box__title">{{ item.title }}</h4>
                 <p class="weui-media-box__desc">{{ item.content }}</p>
               </router-link>

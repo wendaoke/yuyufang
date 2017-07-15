@@ -9,19 +9,19 @@
 						<div class="weui-cell__bd">
 						</div>
 						<div class="weui-cell__ft">
-							<img class="weui-vcode-img" src="https://team.weui.io/avatar/bear.jpg" />
+							<img class="weui-vcode-img" :src="headimgurl" > </img>
 						</div>
 					</div>
 					<div class="weui-cell">
 						<div class="weui-cell__hd"><label class="weui-label">昵称</label></div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" type="text" placeholder="纹刀客" value="纹刀客" readonly>
+							<input class="weui-input" type="text" placeholder="纹刀客" value="纹刀客" readonly v-model="nickname">
 						</div>
 					</div>
 					<div class="weui-cell">
 						<div class="weui-cell__hd"><label for="" class="weui-label">生日</label></div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" type="date" value="">
+							<input class="weui-input" type="date" value="" v-model="birthday">
 						</div>
 					</div>
 					<div class="weui-cell ">
@@ -29,23 +29,33 @@
 							<label class="weui-label">手机号</label>
 						</div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" type="tel" placeholder="请输入手机号">
+							<input class="weui-input" type="tel" placeholder="请输入手机号"  v-model="phone">
 						</div>
 						<div class="weui-cell__ft">
 						</div>
 					</div>
 					<div class="weui-cell ">
 						<div class="weui-cell__hd">
+							<label class="weui-label">邮编</label>
+						</div>
+						<div class="weui-cell__bd">
+							<input class="weui-input" type="text" placeholder="请输入邮编" v-model="postcode">
+						</div>
+						<div class="weui-cell__ft">
+						</div>
+					</div>						
+					<div class="weui-cell ">
+						<div class="weui-cell__hd">
 							<label class="weui-label">地址</label>
 						</div>
 						<div class="weui-cell__bd">
-							<input class="weui-input" type="text" placeholder="请输入地址">
+							<input class="weui-input" type="text" placeholder="请输入地址"  v-model="address">
 						</div>
 						<div class="weui-cell__ft">
 						</div>
 					</div>																				
 					<div class="weui-btn-area">
-						<a class="weui-btn weui-btn_primary" href="javascript:"  >确定</a>
+						<a class="weui-btn weui-btn_primary" href="javascript:"  @click="submitForm()" >确定</a>
 					</div>
 				</div>
 		    </div>
@@ -55,21 +65,47 @@
 </template>
 
 <script>
-import 'src/style/weui.min.css'
+import {getCurrentUser, updateExtraInfo} from '@/service/getUser'
 export default {
 	data () {
 	    return {
-
+			userExtraInfo:{},
+			headimgurl:'',
+			nickname:'',
+			birthday:'',
+			phone:'',
+			postcode:'',
+			address:''
 	    }
 	  },
 	mounted(){
-
+		this.initData();
 	},
     components:{
 
     },	    
 	methods: {
-   	   
+		async initData(){
+		    // 获取详情
+		    	this.userExtraInfo = await getCurrentUser();
+				if((null == this.userExtraInfo)||(null == this.userExtraInfo.user)){
+					return;
+				}
+				headimgurl = this.userExtraInfo.user.headimgurl;
+				nickname   = this.userExtraInfo.user.nickname;
+				birthday   = this.userExtraInfo.birthday;
+				phone      = this.userExtraInfo.phone;
+				postcode   = this.userExtraInfo.postcode;
+				address    = this.userExtraInfo.address;
+		},
+		submitForm(){
+			this.userExtraInfo.birthday 	= this.birthday;
+			this.userExtraInfo.phone		= this.phone;
+			this.userExtraInfo.postcode 	= this.postcode;
+			this.userExtraInfo.address	= this.address;
+			let result = updateExtraInfo(this.userExtraInfo);
+			console.log(result);
+		}
 	},
 }
 </script>
