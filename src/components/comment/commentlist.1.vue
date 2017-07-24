@@ -1,9 +1,14 @@
 <template>
       <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
-              <el-input placeholder="请输入内容" v-model="comment">
-                <el-button  slot="append" type="primary" @click="submitForm()">评论</el-button>
-              </el-input>
+              <el-form ref="commentForm" :inline="false" :model="commentForm"  :rules="rules" label-width="80px" label-position="top" class="comment" >
+                <el-form-item label="评论一下"  prop="comment">
+                  <el-input type="textarea" v-model="commentForm.comment"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button type="primary" @click="submitForm('commentForm')">发 表</el-button>
+                </el-form-item>
+              </el-form>
             </div>
             <div class="weui-panel__bd" v-if="commentlst.length > 0">
                 <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg" v-bind:id=" item.id " v-for="item in commentlst">
@@ -33,57 +38,56 @@
 </template>
 
 <script>
-import weui from 'weui.js'
 import {queryCommentList,addComment} from '@/service/getData'
     export default {
     	data(){
             return{
-              comment: '',
               commentlst:[],
               currentPage: 1,
               totalRow:0,
               pageSize:15,
+              commentForm:{
+                comment:''
+              },
+              rules: {
+                comment: [
+                  { required: true, message: '亲，说点什么吧！', trigger: 'blur' }
+                ]
+              }
             }
         },
       mounted(){
         this.queryCommentList();
       },
-      methods: {
-        handleSizeChange(val) {
-          this.pageSize = val;
-          this.queryCommentList();
-        },
-        handleCurrentChange(val) {
-          this.currentPage = val;
-          this.queryCommentList();
-        },
-        async queryCommentList(){
-            let pager = await queryCommentList(this.pageSize,this.currentPage,1,'00ca0898b3e5455b8a8d8c8802a0832e');
-            this.commentlst = pager.list;
-            this.currentPage = pager.curPage;
-            this.totalRow = pager.totalRow;
-            this.pageSize = pager.pageSize;
-        },
-        submitForm() {
-            if('' != this.comment.trim()){
-              addComment('00ca0898b3e5455b8a8d8c8802a0832e','111',1,this.comment);
-              this.comment = '';
-              this.queryCommentList();
-              weui.toast('操作成功', {
-                  duration: 3000,
-                  className: "bears"
-              });
-            } else {
-              weui.topTips('请写点东西啦！！！', {
-                  duration: 3000,
-                  className: "custom-classname",
-                  callback: function () {
-                  }
-              });
-              return false;
-            }
-        }
+    methods: {
+      handleSizeChange(val) {
+        this.pageSize = val;
+        this.queryCommentList();
+      },
+      handleCurrentChange(val) {
+        this.currentPage = val;
+        this.queryCommentList();
+      },
+      async queryCommentList(){
+          let pager = await queryCommentList(this.pageSize,this.currentPage,1,'00ca0898b3e5455b8a8d8c8802a0832e');
+          this.commentlst = pager.list;
+          this.currentPage = pager.curPage;
+          this.totalRow = pager.totalRow;
+          this.pageSize = pager.pageSize;
+       },
+      submitForm(formName) {
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            addComment('00ca0898b3e5455b8a8d8c8802a0832e','111',1,this.commentForm.comment);
+            this.commentForm.comment = '';
+            this.queryCommentList();
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
       }
+    }
     }
 </script>
 

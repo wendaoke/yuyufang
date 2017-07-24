@@ -3,6 +3,7 @@
 	    <div class="page__bd" style="height: 100%;">
 	        <div class="weui-tab">
 	            <div class="weui-tab__panel">
+	                <searchbar v-on:message="search"></searchbar>
       				<grids></grids>
 					<paneltime :itemlst="secondhandlst">
 					<div class="weui-panel__ft" slot="title">
@@ -30,6 +31,7 @@
 	  				</paneltxt>
 
 	            </div>
+      			<toolbar></toolbar>
 	        </div>
 	    </div>
 	</div>
@@ -38,6 +40,8 @@
 <script>
 
 
+import toolbar from '@/components/common/toolbar'
+import searchbar from '@/components/common/searchbar'
 import grids from '@/components/common/grids'
 import panelpic from '@/components/common/panel-pic'
 import paneltxt from '@/components/common/panel-txt'
@@ -59,12 +63,17 @@ export default {
 		this.queryDiaoHuoList();
 	},
     components:{
+        'toolbar':toolbar,
+        'searchbar':searchbar,
         'grids':grids,
         'panelpic':panelpic,
         'paneltxt':paneltxt,
         'paneltime':paneltime,        
     },	    
 	methods: {
+		search: function (text) {
+
+		},
 		async querySecondHandList(){ 
           this.secondhandlst = await queryRecommendSecondHand();
        },

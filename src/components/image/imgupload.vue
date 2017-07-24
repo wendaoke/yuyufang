@@ -7,8 +7,6 @@
                 </div>
                 <div class="weui-uploader__bd">
                     <ul class="weui-uploader__files" id="uploaderFiles">
-                        <li class="weui-uploader__file" style="background-image:url(./images/pic_160.png)"  v-bind:id=" item" v-for="item in existedimglst">
-                        </li>
                     </ul>
                     <div class="weui-uploader__input-box">
                         <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*" capture="camera" multiple="" />
