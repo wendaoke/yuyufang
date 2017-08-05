@@ -6,7 +6,7 @@
             remote
             :remote-method="remoteMethod"
             :loading="loading"
-            >
+            :popper-class="youxian-search-select">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -63,10 +63,10 @@ import {findCityByName} from '@/service/position'
               this.loading = true;
               setTimeout(() => {
                 this.loading = false;
-                this.queryCityList(query);
+                queryCityList(query);
               }, 200);
             } else {
-              this.options = [];
+              this.options = [];  
             }
           },
           async queryCityList(query){ 

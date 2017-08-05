@@ -6,7 +6,7 @@
               </el-input>
             </div>
             <div class="weui-panel__bd" v-if="commentlst.length > 0">
-                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg" v-bind:id=" item.id " v-for="item in commentlst">
+                <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg youxian-padding" v-bind:id=" item.id " v-for="item in commentlst">
                     <div class="weui-media-box__hd">
                        <img v-bind:src=" item.commentator_headimg " class="weui-media-box__thumb headerimg"></img>
                     </div>
@@ -87,7 +87,7 @@ import {queryCommentList,addComment} from '@/service/getData'
     }
 </script>
 
-<style >
+<style scoped>
 .el-select .el-input {
   width: 160px;
 }
@@ -105,5 +105,16 @@ import {queryCommentList,addComment} from '@/service/getData'
 .weui-media-box__bd ul{
     margin-top: 0px;
 
+}
+.weui-media-box_appmsg .weui-media-box__hd {
+    margin-right: .8em;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+.youxian-padding{
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 </style>

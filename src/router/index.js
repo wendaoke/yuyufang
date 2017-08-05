@@ -50,7 +50,7 @@ export default new Router({
             },
             {
                 name: 'diaodiandetail',
-                path: '/diaodian/detail',
+                path: '/diaodian/detail/:diaodianid',
                 component: diaodiandetail
             },
             {

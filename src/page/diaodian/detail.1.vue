@@ -8,12 +8,10 @@
 							<p>
 								{{diaodiandetail.fish_desc}}
 							</p>
-							<p>
-								<img  v-bind:src="item.imageName"  v-bind:key="item.imageId" v-for="item in diaodiandetail.images"/>
-							</p>
 						</section>
 				</article>
 			</div>
+			<carousel  :current-view.sync="diaodiandetail.images" :inputValue="diaodiandetail.images"></carousel>
 
       	
         	<commentlist></commentlist>

@@ -43,7 +43,9 @@
 import 'src/style/weui.min.css'
 import {mapState, mapMutations} from 'vuex'
 import searchbar from '@/components/common/searchbar'
+import header from '@/components/common/header'
 import {queryDiaoDian} from '@/service/getData'
+import {checkUser} from '@/service/checkUser'
 export default {
   name: 'hello',
   data () {
@@ -57,11 +59,13 @@ export default {
     }
   },
   mounted(){
+ 		this.initData();   
     // 获取列表
     this.queryDiaoDianList();
     },
     components:{
         'searchbar':searchbar,
+        'header':header,        
     },
     methods: {
       handleSizeChange(val) {
@@ -82,6 +86,12 @@ export default {
           this.totalRow = pager.totalRow;
           this.pageSize = pager.pageSize;          
        },
+      async initData(){
+        let res = await checkUser();
+        if(res.code != ''){
+          window.open(res.code, "_top");
+        }
+      },
       search: function (text) {
         this.searchTxt = text;
         console.log('监听到子组件变化:'+this.searchTxt);

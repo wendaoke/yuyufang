@@ -1,6 +1,6 @@
 <template>
   <div class="block">
-    <el-carousel height="350px" >
+    <el-carousel trigger="click" height="350px" >
       <el-carousel-item v-for="item in inputValue" :key="item">
         <img v-bind:src=" item.image " ></img>
       </el-carousel-item>
