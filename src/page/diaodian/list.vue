@@ -45,7 +45,6 @@ import {mapState, mapMutations} from 'vuex'
 import searchbar from '@/components/common/searchbar'
 import header from '@/components/common/header'
 import {queryDiaoDian} from '@/service/getData'
-import {checkUser} from '@/service/checkUser'
 export default {
   name: 'hello',
   data () {
@@ -87,10 +86,7 @@ export default {
           this.pageSize = pager.pageSize;          
        },
       async initData(){
-        let res = await checkUser();
-        if(res.code != ''){
-          window.open(res.code, "_top");
-        }
+
       },
       search: function (text) {
         this.searchTxt = text;

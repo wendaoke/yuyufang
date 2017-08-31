@@ -1,4 +1,6 @@
 import fetch from '../config/fetch'
 
-var checkUser = () => fetch('GET', '/weixin/checkuser', {});
+var checkUser = (redirect) => fetch('GET', '/weixin/checkuser', {
+    redirect: redirect
+});
 export { checkUser }

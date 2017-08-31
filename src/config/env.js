@@ -6,20 +6,20 @@
  * imgBaseUrl: 图片所在域名地址
  * 
  */
-let baseUrl; 
+let baseUrl;
 let routerMode;
-const imgBaseUrl = 'https://img.you-xian.cn';
+const imgBaseUrl = 'https://img.you-xian.com';
 
 if (process.env.NODE_ENV == 'development') {
-	baseUrl = 'http://localhost:8888';
-	routerMode = 'hash'
-}else{
-	baseUrl = 'http://120.25.166.56:8888';
-	routerMode = 'hash'
+    baseUrl = 'http://localhost:8888';
+    routerMode = 'hash'
+} else {
+    baseUrl = 'http://you-xian.com';
+    routerMode = 'hash'
 }
 
 export {
-	baseUrl,
-	routerMode,
-	imgBaseUrl
+    baseUrl,
+    routerMode,
+    imgBaseUrl
 }

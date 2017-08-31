@@ -1,9 +1,12 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import App from '../App'
+import store from '../store/store'
+import * as types from '../store/types'
 
-Vue.use(Router)
+Vue.use(VueRouter)
 const home = r => require.ensure([], () => r(require('@/page/home/index')), 'home')
+const login = r => require.ensure([], () => r(require('@/page/home/login')), 'login')
 const diaodianlst = r => require.ensure([], () => r(require('@/page/diaodian/list')), 'diaodianlst')
 const diaodianadd = r => require.ensure([], () => r(require('@/page/diaodian/add')), 'diaodianadd')
 const diaodiandetail = r => require.ensure([], () => r(require('@/page/diaodian/detail')), 'diaodiandetail')
@@ -20,122 +23,156 @@ const diaohuoadd = r => require.ensure([], () => r(require('@/page/diaohuo/add')
 const diaohuodetail = r => require.ensure([], () => r(require('@/page/diaohuo/detail')), 'diaohuodetail')
 const aboutme = r => require.ensure([], () => r(require('@/page/aboutme/index')), 'aboutme')
 const myinfo = r => require.ensure([], () => r(require('@/page/aboutme/myinfo')), 'myinfo')
-export default new Router({
-    routes: [{
-        path: '/',
-        component: App,
-        children: [ //二级路由。对应App.vue
-            //地址为空时跳转home页面
-            {
-                path: '',
-                redirect: '/home'
+const routes = [{
+    path: '/',
+    component: App,
+    children: [ //二级路由。对应App.vue
+        //地址为空时跳转home页面
+        {
+            path: '',
+            redirect: '/home'
+        },
+        {
+            path: '/home',
+            component: home
+        },
+        {
+            path: '/diaodian/',
+            component: diaodianlst,
+            meta: {
+                requireAuth: true,
             },
-            {
-                path: '/home',
-                component: home
-            },
-            {
-                path: '/diaodian/',
-                component: diaodianlst,
-                children: [{
-                        path: '',
-                        redirect: 'list'
-                    },
-                    {
-                        path: 'list',
-                        component: diaodianlst,
-                    },
+            children: [{
+                    path: '',
+                    redirect: 'list'
+                },
+                {
+                    path: 'list',
+                    component: diaodianlst,
+                },
 
-                ]
-            },
-            {
-                name: 'diaodiandetail',
-                path: '/diaodian/detail/:diaodianid',
-                component: diaodiandetail
-            },
-            {
-                name: 'diaodianadd',
-                path: '/diaodian/add',
-                component: diaodianadd
-            },
-            {
-                path: '/secondhand/',
-                component: secondhandlst,
-                children: [{
-                        path: '',
-                        redirect: 'list'
-                    },
-                    {
-                        path: 'list',
-                        component: secondhandlst,
-                    },
+            ]
+        },
+        {
+            name: 'diaodiandetail',
+            path: '/diaodian/detail/:diaodianid',
+            component: diaodiandetail
+        },
+        {
+            name: 'diaodianadd',
+            path: '/diaodian/add',
+            component: diaodianadd
+        },
+        {
+            path: '/secondhand/',
+            component: secondhandlst,
+            children: [{
+                    path: '',
+                    redirect: 'list'
+                },
+                {
+                    path: 'list',
+                    component: secondhandlst,
+                },
 
-                ]
-            },
-            {
-                name: 'secondhanddetail',
-                path: '/secondhand/detail',
-                component: secondhanddetail
-            },
-            {
-                name: 'secondhandadd',
-                path: '/secondhand/add',
-                component: secondhandadd
-            },
-            {
-                name: 'secondhandedit',
-                path: '/secondhand/edit',
-                component: secondhandedit
-            },
-            {
-                name: 'mysecondhandlst',
-                path: '/secondhand/mylst',
-                component: mysecondhandlst
-            },
-            {
-                path: '/diaoji/',
-                component: diaojilst,
-                children: [{
-                        path: '',
-                        redirect: 'list'
-                    },
-                    {
-                        path: 'list',
-                        component: diaojilst,
-                    },
+            ]
+        },
+        {
+            name: 'secondhanddetail',
+            path: '/secondhand/detail',
+            component: secondhanddetail
+        },
+        {
+            name: 'secondhandadd',
+            path: '/secondhand/add',
+            component: secondhandadd
+        },
+        {
+            name: 'secondhandedit',
+            path: '/secondhand/edit',
+            component: secondhandedit
+        },
+        {
+            name: 'mysecondhandlst',
+            path: '/secondhand/mylst',
+            component: mysecondhandlst
+        },
+        {
+            path: '/diaoji/',
+            component: diaojilst,
+            children: [{
+                    path: '',
+                    redirect: 'list'
+                },
+                {
+                    path: 'list',
+                    component: diaojilst,
+                },
 
-                ]
-            },
-            {
-                path: '/diaoji/detail',
-                component: diaojidetail,
-            },
-            {
-                path: '/diaohuo/',
-                component: diaohuolst,
-                children: [{
-                        path: '',
-                        redirect: 'list'
-                    },
-                    {
-                        path: 'list',
-                        component: diaohuolst,
-                    },
+            ]
+        },
+        {
+            path: '/diaoji/detail',
+            component: diaojidetail,
+        },
+        {
+            path: '/diaohuo/',
+            component: diaohuolst,
+            children: [{
+                    path: '',
+                    redirect: 'list'
+                },
+                {
+                    path: 'list',
+                    component: diaohuolst,
+                },
 
-                ]
-            },
-            {
-                path: '/diaohuo/detail',
-                component: diaohuodetail,
-            },
-            {
-                path: '/aboutme',
-                component: aboutme,
-            },
-            {
-                path: '/aboutme/myinfo',
-                component: myinfo,
-            },
-        ]
-    }]
+            ]
+        },
+        {
+            path: '/diaohuo/detail',
+            component: diaohuodetail,
+        },
+        {
+            path: '/aboutme',
+            component: aboutme,
+        },
+        {
+            path: '/aboutme/myinfo',
+            component: myinfo,
+        },
+        {
+            path: '/login',
+            component: login,
+        },
+    ]
+}];
+
+
+// 页面刷新时，重新赋值token
+if (window.localStorage.getItem('token')) {
+    store.commit(types.LOGIN, window.localStorage.getItem('token'))
+}
+
+const router = new VueRouter({
+    routes
+});
+
+
+router.beforeEach((to, from, next) => {
+    console.log(to);
+    if (to.matched.some(r => r.meta.requireAuth)) {
+        if (store.state.token) {
+            next();
+        } else {
+            next({
+                path: '/login',
+                query: { redirect: to.fullPath }
+            })
+        }
+    } else {
+        next();
+    }
 })
+
+export default router;
