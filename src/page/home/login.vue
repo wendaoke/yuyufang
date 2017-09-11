@@ -26,7 +26,6 @@ export default {
          redirect = '/';
        }
         redirect = decodeURIComponent(redirect || '/');
-        console.log(redirect);
         let res = await checkUser(redirect);
         if(res.code != ''){
             store.commit(types.LOGIN, res.description);           

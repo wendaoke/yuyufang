@@ -1,9 +1,9 @@
 <template>
   <div class="weui-panel weui-panel_access" >
-      <searchbar v-on:message="search"></searchbar>
+      <searchbar v-on:message="search" :placeholdertxt="placeholdertxt|filterquery"></searchbar>
       <div class="weui-cells weui-cells_form">
           <div class="weui-cell weui-cell_switch">
-              <div class="weui-cell__bd">小编共找到 {{msg}}个钓点</div>
+              <div class="weui-cell__bd">找到 {{msg}}个相关钓点</div>
               <!--
               <div class="weui-cell__ft">
                  <router-link to="/diaodian/add"  >
@@ -43,8 +43,9 @@
 import 'src/style/weui.min.css'
 import {mapState, mapMutations} from 'vuex'
 import searchbar from '@/components/common/searchbar'
-import header from '@/components/common/header'
 import {queryDiaoDian} from '@/service/getData'
+import store from '@/store/store'
+import * as types from '@/store/types'
 export default {
   name: 'hello',
   data () {
@@ -54,7 +55,8 @@ export default {
       currentPage: 1, 
       totalRow:0,
       pageSize:8,
-      searchTxt:'',   
+      searchTxt:'',
+      placeholdertxt:'',  
     }
   },
   mounted(){
@@ -64,7 +66,13 @@ export default {
     },
     components:{
         'searchbar':searchbar,
-        'header':header,        
+    },
+    filters: {
+      filterquery: function (value) {
+        if (!value) return '请输入查询内容，如区名、地点...';
+        value = value.toString();
+        return value;  
+      }
     },
     methods: {
       handleSizeChange(val) {
@@ -78,7 +86,8 @@ export default {
         this.queryDiaoDianList();
       },
       async queryDiaoDianList(){ 
-          let pager = await queryDiaoDian(this.pageSize,this.currentPage,this.searchTxt);
+          console.log(store.state.diaodianquerytxt);
+          let pager = await queryDiaoDian(this.pageSize,this.currentPage,store.state.diaodianquerytxt);
           this.diaodianlst = pager.list;
           this.msg = pager.totalRow;
           this.currentPage = pager.curPage;
@@ -86,10 +95,15 @@ export default {
           this.pageSize = pager.pageSize;          
        },
       async initData(){
-
+          this.searchTxt=store.state.diaodianquerytxt;
+          if('' != this.searchTxt){
+            this.placeholdertxt = this.searchTxt;
+          }
       },
       search: function (text) {
         this.searchTxt = text;
+        this.placeholdertxt  = text;
+        store.commit(types.DIAODIAN_QUERY_TEXT, this.searchTxt);  
         console.log('监听到子组件变化:'+this.searchTxt);
         this.queryDiaoDianList();
       }

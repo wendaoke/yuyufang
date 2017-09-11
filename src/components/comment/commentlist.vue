@@ -1,19 +1,19 @@
 <template>
       <div class="weui-panel weui-panel_access">
             <div class="weui-panel__hd">
-              <el-input placeholder="请输入内容" v-model="comment">
+              <el-input placeholder="请输入评论内容..." v-model="comment">
                 <el-button  slot="append" type="primary" @click="submitForm()">评论</el-button>
               </el-input>
             </div>
             <div class="weui-panel__bd" v-if="commentlst.length > 0">
                 <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg youxian-padding" v-bind:id=" item.id " v-for="item in commentlst">
                     <div class="weui-media-box__hd">
-                       <img v-bind:src=" item.commentator_headimg " class="weui-media-box__thumb headerimg"></img>
+                       <img v-bind:src=" item.commentator_headimg | getDefaultImage " class="weui-media-box__thumb headerimg"></img>
                     </div>
                     <div class="weui-media-box__bd">
                         <ul class="weui-media-box__info">
-                            <li class="weui-media-box__info__meta">{{ item.commentator_name }}</li>
-                            <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ item.update_time }}</li>
+                            <li class="weui-media-box__info__meta">{{ item.commentator_name | getDefaultName}}</li>
+                            <li class="weui-media-box__info__meta weui-media-box__info__meta_extra">{{ item.showTime }}</li>
                         </ul>
                         <p class="weui-media-box__desc">{{ item.content }}</p>
                     </div>
@@ -34,6 +34,7 @@
 
 <script>
 import weui from 'weui.js'
+import store from '@/store/store'
 import {queryCommentList,addComment} from '@/service/getData'
     export default {
     	data(){
@@ -45,8 +46,29 @@ import {queryCommentList,addComment} from '@/service/getData'
               pageSize:15,
             }
         },
-      mounted(){
-        this.queryCommentList();
+      created(){
+       // this.queryCommentList();
+      },
+      props: ['itemId'],
+      watch: {
+        itemId: function (newItemId) {
+          this.queryCommentList();
+        }
+      },
+      filters: {
+        getLocalTime: function (value) {
+          if (!value) return '';
+          value = value.toString();
+          return new Date(parseInt(value) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');  
+        },
+        getDefaultName:function(value){
+          if (!value) return '游客';
+          return value.toString();
+        },
+        getDefaultImage:function(value){
+          if (!value) return '\\static\\images\\defaulth-head-image-bear.png';
+          return value.toString();
+        }
       },
       methods: {
         handleSizeChange(val) {
@@ -58,7 +80,7 @@ import {queryCommentList,addComment} from '@/service/getData'
           this.queryCommentList();
         },
         async queryCommentList(){
-            let pager = await queryCommentList(this.pageSize,this.currentPage,1,'00ca0898b3e5455b8a8d8c8802a0832e');
+            let pager = await queryCommentList(this.pageSize,this.currentPage,1,this.itemId);
             this.commentlst = pager.list;
             this.currentPage = pager.curPage;
             this.totalRow = pager.totalRow;
@@ -66,7 +88,8 @@ import {queryCommentList,addComment} from '@/service/getData'
         },
         submitForm() {
             if('' != this.comment.trim()){
-              addComment('00ca0898b3e5455b8a8d8c8802a0832e','111',1,this.comment);
+              let sessionId = store.state.token;
+              addComment(this.itemId,sessionId,1,this.comment);
               this.comment = '';
               this.queryCommentList();
               weui.toast('操作成功', {

@@ -16,7 +16,7 @@
 			</div>
 
       	
-        	<commentlist></commentlist>
+        	<commentlist :itemId="diaodianid"></commentlist>
 			<div class="page__ft j_bottom" style="margin: 20px 0;">
 				<a href="javascript:void()"></a>
 			</div>
@@ -34,6 +34,7 @@ export default {
 	data () {
 	    return {
 	      diaodiandetail:{},
+		  diaodianid:'',
 	    }
 	  },
 	mounted(){
@@ -46,10 +47,10 @@ export default {
 	},
 	methods: {
 	    async initData(){
-	    	let diaodianid = this.$route.params.diaodianid;
+	    	this.diaodianid = this.$route.params.diaodianid;
 		    // 获取详情
-		    if(null != diaodianid){
-		    	this.diaodiandetail = await queryDiaoDianDetail(diaodianid);
+		    if(null != this.diaodianid){
+		    	this.diaodiandetail = await queryDiaoDianDetail(this.diaodianid);
 		    }
 
 		},

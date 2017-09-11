@@ -154,14 +154,18 @@ if (window.localStorage.getItem('token')) {
     store.commit(types.LOGIN, window.localStorage.getItem('token'))
 }
 
+if (window.localStorage.getItem('diaodianquerytxt')) {
+    store.commit(types.DIAODIAN_QUERY_TEXT, window.localStorage.getItem('diaodianquerytxt'))
+}
+
 const router = new VueRouter({
     routes
 });
 
 
 router.beforeEach((to, from, next) => {
-    console.log(to);
     if (to.matched.some(r => r.meta.requireAuth)) {
+        console.log(store.state.token);
         if (store.state.token) {
             next();
         } else {

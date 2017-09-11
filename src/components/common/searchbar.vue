@@ -1,6 +1,6 @@
 <template>
      
-        <el-input placeholder="请输入查询内容"  v-model="queryTxt" >
+        <el-input  v-bind:placeholder="placeholdertxt | filterquery"  v-model="queryTxt" >
           <el-select v-model="select" slot="prepend" placeholder="城市" 
             filterable
             remote
@@ -47,6 +47,14 @@ import {findCityByName} from '@/service/position'
               "Washington", "West Virginia", "Wisconsin",
               "Wyoming"]
             }
+        },
+        props: ['placeholdertxt'],
+        filters: {
+          filterquery: function (value) {
+            if (!value) return '请输入查询内容...';
+            value = value.toString();
+            return value;  
+          }
         },
         mounted() {
           this.list = this.states.map(item => {

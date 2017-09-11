@@ -10,7 +10,8 @@ export default new Vuex.Store({
     state: {
         user: {},
         token: null,
-        title: ''
+        title: '',
+        diaodianquerytxt: ''
     },
     mutations: {
         [types.LOGIN]: (state, data) => {
@@ -23,6 +24,10 @@ export default new Vuex.Store({
         },
         [types.TITLE]: (state, data) => {
             state.title = data;
+        },
+        [types.DIAODIAN_QUERY_TEXT]: (state, data) => {
+            localStorage.diaodianquerytxt = data;
+            state.diaodianquerytxt = data;
         }
     }
 })
