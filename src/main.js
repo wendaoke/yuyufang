@@ -7,7 +7,10 @@ import VeeValidate, { Validator } from 'vee-validate'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import 'weui/dist/style/weui.min.css'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
+Vue.use(VueAxios, axios)
 
 Vue.config.productionTip = false
 

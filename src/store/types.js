@@ -10,3 +10,5 @@ export const LOGOUT = 'logout';
 export const TITLE = 'title';
 
 export const DIAODIAN_QUERY_TEXT = '';
+
+export const DIAOJI_QUERY_TEXT = '';

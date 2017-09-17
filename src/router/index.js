@@ -56,16 +56,25 @@ const routes = [{
         {
             name: 'diaodiandetail',
             path: '/diaodian/detail/:diaodianid',
+            meta: {
+                requireAuth: true,
+            },
             component: diaodiandetail
         },
         {
             name: 'diaodianadd',
             path: '/diaodian/add',
+            meta: {
+                requireAuth: true,
+            },
             component: diaodianadd
         },
         {
             path: '/secondhand/',
             component: secondhandlst,
+            meta: {
+                requireAuth: true,
+            },
             children: [{
                     path: '',
                     redirect: 'list'
@@ -80,11 +89,17 @@ const routes = [{
         {
             name: 'secondhanddetail',
             path: '/secondhand/detail',
+            meta: {
+                requireAuth: true,
+            },
             component: secondhanddetail
         },
         {
             name: 'secondhandadd',
             path: '/secondhand/add',
+            meta: {
+                requireAuth: true,
+            },
             component: secondhandadd
         },
         {
@@ -95,11 +110,17 @@ const routes = [{
         {
             name: 'mysecondhandlst',
             path: '/secondhand/mylst',
+            meta: {
+                requireAuth: true,
+            },
             component: mysecondhandlst
         },
         {
             path: '/diaoji/',
             component: diaojilst,
+            meta: {
+                requireAuth: true,
+            },
             children: [{
                     path: '',
                     redirect: 'list'
@@ -112,12 +133,19 @@ const routes = [{
             ]
         },
         {
-            path: '/diaoji/detail',
+            name: 'diaojidetail',
+            path: '/diaoji/detail/:diaoJiId',
             component: diaojidetail,
+            meta: {
+                requireAuth: true,
+            },
         },
         {
             path: '/diaohuo/',
             component: diaohuolst,
+            meta: {
+                requireAuth: true,
+            },
             children: [{
                     path: '',
                     redirect: 'list'
@@ -132,14 +160,23 @@ const routes = [{
         {
             path: '/diaohuo/detail',
             component: diaohuodetail,
+            meta: {
+                requireAuth: true,
+            },
         },
         {
             path: '/aboutme',
             component: aboutme,
+            meta: {
+                requireAuth: true,
+            },
         },
         {
             path: '/aboutme/myinfo',
             component: myinfo,
+            meta: {
+                requireAuth: true,
+            },
         },
         {
             path: '/login',
@@ -157,6 +194,11 @@ if (window.localStorage.getItem('token')) {
 if (window.localStorage.getItem('diaodianquerytxt')) {
     store.commit(types.DIAODIAN_QUERY_TEXT, window.localStorage.getItem('diaodianquerytxt'))
 }
+
+if (window.localStorage.getItem('diaojiquerytxt')) {
+    store.commit(types.DIAOJI_QUERY_TEXT, window.localStorage.getItem('diaojiquerytxt'))
+}
+
 
 const router = new VueRouter({
     routes
